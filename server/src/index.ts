@@ -1,0 +1,29 @@
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import { router } from "./routes";
+
+dotenv.config();
+
+export const app = express();
+
+app.use(
+  cors({
+    origin: "http://localhost:5173", // frontend URL (Vite default)
+  }),
+);
+
+app.use(express.json());
+
+app.use(express.urlencoded({ extended: true })); //true --> aloow nested objects in urlencoded data, false --> only flat key-value pairs.//
+
+app.use("/api/habits", router);
+
+app.get("/", (req, res) => {
+  console.log("Server is  okay");
+  res.send("Server is ok !");
+});
+
+app.listen(process.env.PORT, () => {
+  console.log("Server is running on port ", process.env.PORT);
+});

@@ -1,6 +1,6 @@
 import type { Response, Request } from "express";
 import z from "zod";
-import { habits_insert_db } from "../services";
+import { deleting_habitById, habits_insert_db } from "../services/habit.post.services";
 
 export default async function createHabits(
   req: Request,
@@ -40,4 +40,32 @@ export default async function createHabits(
   } catch (error) {
     res.status(400).json({ message: "Failed to create habit", error });
   }
+}
+
+
+export async function delete_habits(req:Request,res:Response):Promise<void>{
+
+const id = Number(req.params.id)
+
+
+const del_habits=  await deleting_habitById(id)
+
+
+
+
+if(del_habits){
+  res.status(200).json({
+  message: "Deleted successfully"
+});
+}
+else{
+
+ res.status(500).json({
+    message: "Habit deleting issue in server  || server error||",
+  });
+}
+
+
+
+
 }

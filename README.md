@@ -1,33 +1,69 @@
- <div>
+## 🎨 Landing Section Code
 
-            <section className="flex flex-col items-center justify-center text-center px-6 py-28">
-                <h2 className="text-5xl font-extrabold rotate-[-1deg] leading-tight">
-                    Build your habits <br /> like a sketch
-                </h2>
+```html
+<div>
 
-                <p className="mt-6 max-w-xl opacity-80">
-                    A simple and fun habit tracker with a hand-drawn feel. No complexity,
-                    just progress.
-                </p>
+    <section class="hero">
+        <h2>
+            Build your habits <br /> like a sketch
+        </h2>
 
-                <Link to="/home" className="mt-10 px-8 py-3.5 bg-gradient-to-br from-black to-black text-white rounded shadow-[8px_8px_0px_#5568d3] hover:translate-x-1 hover:translate-y-1 hover:shadow-[4px_4px_0px_#5568d3] active:translate-x-2 active:translate-y-2 active:shadow-none transition-all">
-                    Get Started </Link>
-            </section>
+        <p>
+            A simple and fun habit tracker with a hand-drawn feel. No complexity,
+            just progress.
+        </p>
 
+        <a href="/home" class="btn">Get Started</a>
+    </section>
 
-            <section className="flex flex-col md:flex-row gap-6 justify-center px-10 pb-20">
+    <section class="features">
 
-                <div className="p-6 border-2 border-dashed border-black shadow-[4px_4px_0px_black] rotate-[-1deg] bg-white">
-                    Simple UI
-                </div>
-
-                <div className="p-6 border-2 border-dashed border-black shadow-[4px_4px_0px_black] rotate-[1deg] bg-white">
-                    Fast Tracking
-                </div>
-
-                <div className="p-6 border-2 border-dashed border-black shadow-[4px_4px_0px_black] rotate-[-2deg] bg-white">
-                    Sketch Style
-                </div>
-            </section>
-
+        <div class="card rotate-left">
+            Simple UI
         </div>
+
+        <div class="card rotate-right">
+            Fast Tracking
+        </div>
+
+        <div class="card rotate-more-left">
+            Sketch Style
+        </div>
+
+    </section>
+
+</div>
+```
+
+---
+
+## 🎨 CSS
+
+```css
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 100px 20px;
+}
+
+.hero h2 {
+  font-size: 48px;
+  font-weight: 800;
+  transform: rotate(-1deg);
+}
+
+.btn {
+  background: black;
+  color: white;
+  padding: 12px 24px;
+  box-shadow: 8px 8px 0px #5568d3;
+}
+
+.card {
+  border: 2px dashed black;
+  padding: 20px;
+  box-shadow: 4px 4px 0px black;
+}
+```

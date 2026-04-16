@@ -1,15 +1,24 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+import { TegakiRenderer } from 'tegaki';
+import bundle from 'tegaki/fonts/caveat';
 function Hero() {
     return (
         <div>
 
             <section className="flex flex-col items-center justify-center text-center px-6 py-28">
-                <h2 className="text-5xl font-extrabold rotate-[-1deg] leading-tight">
-                    Build your habits <br /> like a sketch
-                </h2>
-
+               
+                     <TegakiRenderer
+      font={bundle}
+      time={{ mode: 'uncontrolled', speed: 4, loop: true }}
+      style={{ fontSize: 48 }}
+    >
+        Build your habits 
+        like a sketch
+     
+    </TegakiRenderer>
+                    
+                
                 <p className="mt-6 max-w-xl opacity-80">
                     A simple and fun habit tracker with a hand-drawn feel. No complexity,
                     just progress.

@@ -3,17 +3,31 @@ import { get_data } from "../services/habit-get.services";
 
 export async function Get_Req(req: Request, res: Response): Promise<void> {
   try {
-    const get_All_habits = await get_data();
+    const habits = await get_data();
+
+
+    if (!habits || habits.length === 0) {
+      res.status(404).json({
+        success: false,
+        message: "No habits found",
+      });
+      return;
+    }
 
     res.status(200).json({
       success: true,
-      data: get_All_habits,
+      count: habits.length,
+      data: habits,
     });
+
   } catch (error) {
+  
+    console.error("Error fetching habits:", error);
+
+   
     res.status(500).json({
       success: false,
-      message: "Failed to fetch habits",
-      error: error instanceof Error ? error.message : "Unknown error",
+      message: "Internal server error",
     });
   }
 }

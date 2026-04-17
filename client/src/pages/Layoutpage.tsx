@@ -1,15 +1,12 @@
-import React from 'react'
-import Layout from '../components/Layout'
+import React from "react";
+import Layout from "../components/Layout";
 
 function Layoutpage() {
   return (
     <>
-    
-    <Layout/>
-    
-    
+      <Layout />
     </>
-  )
+  );
 }
 
-export default Layoutpage
+export default Layoutpage;

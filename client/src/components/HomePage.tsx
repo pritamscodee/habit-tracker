@@ -1,137 +1,134 @@
-import React, { useState } from 'react';
-import { Button } from './ui/button';
-
-import { Popover } from '@base-ui/react/popover';
-
-import { Card, CardHeader, CardTitle, CardContent } from './ui/card';
-import { Input } from './ui/input';
-import { Label } from './ui/label';
-import { Textarea } from './ui/textarea';
-import { api } from '../api/axios-config';
-import { toast } from 'sonner';
+import React, { useState } from "react";
+import { Button } from "./ui/button";
+import { Popover } from "@base-ui/react/popover";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import { Textarea } from "./ui/textarea";
+import { api } from "../api/axios-config";
+import { toast } from "sonner";
 
 function Home() {
+  const habitTypes = [
+    { label: "Fitness", emoji: "💪" },
+    { label: "Study", emoji: "📚" },
+    { label: "Coding", emoji: "💻" },
+    { label: "Health", emoji: "🥗" },
+    { label: "Sleep", emoji: "😴" },
+    { label: "Fun", emoji: "🎮" },
+  ];
+
+  const [selectedType, setSelectedType] = useState(habitTypes[0]);
+
   return (
-    <div className="min-h-screen mt-7 ">
-      <div className="border-2 border-black shadow-[4px_4px_0px_#000] p-6 rounded-lg ">
-        ✏️ Welcome to Habit Tracker
-        <p style={{ fill: 'black' }} className="text-shadow-black text-2xl">
-          Build better habits, one day at a time.
-        </p>
-        <Popover.Root>
-         
-          <Popover.Trigger
-            className="mt-4 border-2 border-black px-4 py-2 bg-white rounded rotate-2 hover:rotate-3 hover:bg-amber-700   active:shadow-[2px_2px_0px_#000]">
+    <div className="min-h-screen bg-[#f7f7f7] p-6 flex items-center justify-center">
+      <div className="w-full max-w-2xl">
+        <div className="bg-yellow-300 border-4 border-black p-6 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-shadow duration-150">
+          <div className="flex items-center gap-2 text-4xl font-black uppercase tracking-tighter text-black mb-2">
+            ✏️ Habit Tracker
+          </div>
+          <p className="text-xl font-bold text-black/80 mb-8 font-mono">
+            Build better habits, one day at a time.
+          </p>
 
-              
-            Add Habits
-          </Popover.Trigger>
+          <Popover.Root>
+            <Popover.Trigger>
+              <button className="bg-lime-400 border-4 border-black px-6 py-3 font-bold text-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all duration-100 uppercase tracking-wide">
+                + Add New Habit
+              </button>
+            </Popover.Trigger>
 
-          <Popover.Portal>
-            <Popover.Positioner sideOffset={8}>
-              <Popover.Popup className="bg-white border-4 border-black rounded-lg p-6 shadow-[6px_6px_0px_#000] transform rotate-1" style={{ fontFamily: 'Comic Sans MS, cursive' }}>
-                <Popover.Arrow className="fill-black">
-                  <ArrowSvg />
-                </Popover.Arrow>
-                <Popover.Title className=" flex justify-center ">
-                  <p className=" text-3xl">Add New Habit 🧘 🌿 😌</p>
-                </Popover.Title>
-                <div>
+            <Popover.Portal>
+              <Popover.Positioner sideOffset={16}>
+                <Popover.Popup className="bg-white border-4 border-black p-6 w-[90vw] max-w-md shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] -rotate-1">
+                  <Popover.Arrow className="fill-black stroke-black stroke-2">
+                    <ArrowSvg />
+                  </Popover.Arrow>
+                  <Popover.Title className="text-3xl font-black mb-4 flex items-center gap-2 uppercase">
+                    <span>➕</span> Create Habit
+                  </Popover.Title>
                   <Form />
-                </div>
-              </Popover.Popup>
-            </Popover.Positioner>
-          </Popover.Portal>
-        </Popover.Root>
+                </Popover.Popup>
+              </Popover.Positioner>
+            </Popover.Portal>
+          </Popover.Root>
+        </div>
       </div>
-
-     
     </div>
   );
 }
 
 function Form() {
-  const [name, setName] = useState<string>('');
-  const [description, setDescription] = useState<string>('');
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  async function handleSubmit(e: React.SubmitEvent) {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    try {
-      const response = await api.post('/post', { name, description });
-
-      if (response.status === 201) {
-        toast('Habit Added Successfully in database');
-
-        setName('');
-        setDescription('');
-      }
-      console.log('response from server', response.data);
-    } catch (err) {
-      console.log(err);
+    if (!name.trim()) {
+      toast.error("Please enter a habit name");
+      return;
     }
-    setName('');
-    setDescription('');
-  }
+
+    setIsSubmitting(true);
+    try {
+      const response = await api.post("/post", { name, description });
+      if (response.status === 201) {
+        toast.success("Habit added! 💥");
+        setName("");
+        setDescription("");
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to add habit. Try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
-    <div className="space-y-3">
-      <Card className="w-full max-w-md border-2 border-dashed border-black shadow-none rounded-2xl bg-transparent">
-        <CardHeader>
-          <CardTitle className="text-2xl font-mono tracking-wide">
-            ✏️ Create Habit
-          </CardTitle>
-        </CardHeader>
+    <form onSubmit={handleSubmit} className="space-y-5">
+      <div className="space-y-2">
+        <Label className="font-bold uppercase text-sm">Habit Name *</Label>
+        <Input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="e.g., Gym, Study, Meditate"
+          className="border-2 border-black bg-white rounded-none p-2 focus:outline-none focus:ring-2 focus:ring-black"
+          disabled={isSubmitting}
+        />
+      </div>
 
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <Label className="font-mono">Habit Name</Label>
-              <Input
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="e.g. Gym, Study"
-                className="border-dashed border-2 border-black bg-transparent focus-visible:ring-0"
-              />
-            </div>
+      <div className="space-y-2">
+        <Label className="font-bold uppercase text-sm">Description</Label>
+        <Textarea
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          placeholder="Why this habit? Any notes?"
+          className="border-2 border-black bg-white rounded-none p-2 focus:outline-none focus:ring-2 focus:ring-black"
+          rows={3}
+          disabled={isSubmitting}
+        />
+      </div>
 
-            <div className="space-y-2">
-              <Label className="font-mono">Description</Label>
-              <Textarea
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                placeholder="Describe your habit..."
-                className="border-dashed border-2 border-black bg-transparent focus-visible:ring-0"
-              />
-            </div>
-
-            <Button
-              type="submit"
-              className="w-full border-2 border-black border-dashed bg-transparent text-black hover:bg-black hover:text-white transition"
-            >
-              Save Habit
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
-    </div>
+      <Button
+        type="submit"
+        disabled={isSubmitting}
+        className="w-full bg-cyan-400 border-4 border-black py-3 font-bold uppercase shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all duration-100 disabled:opacity-50 disabled:translate-x-0 disabled:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+      >
+        {isSubmitting ? "Saving..." : "Save Habit"}
+      </Button>
+    </form>
   );
 }
 
-function ArrowSvg(props: React.ComponentProps<'svg'>) {
+function ArrowSvg(props: React.ComponentProps<"svg">) {
   return (
-    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
+    <svg width="24" height="12" viewBox="0 0 24 12" fill="none" {...props}>
       <path
-        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
-        style={{ fill: 'black' }}
-      />
-      <path
-        d="M8.99542 1.85876C9.75604 1.17425 10.9106 1.17422 11.6713 1.85878L16.5281 6.22989C17.0789 6.72568 17.7938 7.00001 18.5349 7.00001L15.89 7L11.0023 2.60207C10.622 2.2598 10.0447 2.2598 9.66436 2.60207L4.77734 7L2.13171 7.00001C2.87284 7.00001 3.58774 6.72568 4.13861 6.22989L8.99542 1.85876Z"
-        style={{ fill: 'white', stroke: 'black', strokeWidth: 1 }}
-      />
-      <path
-        d="M10.3333 3.34539L5.47654 7.71648C4.55842 8.54279 3.36693 9 2.13172 9H0V8H2.13172C3.11989 8 4.07308 7.63423 4.80758 6.97318L9.66437 2.60207C10.0447 2.25979 10.622 2.2598 11.0023 2.60207L15.8591 6.97318C16.5936 7.63423 17.5468 8 18.5349 8H20V9H18.5349C17.2998 9 16.1083 8.54278 15.1901 7.71648L10.3333 3.34539Z"
-        style={{ fill: 'black' }}
+        d="M12 0L24 12H0L12 0Z"
+        fill="white"
+        stroke="black"
+        strokeWidth="2"
       />
     </svg>
   );

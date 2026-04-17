@@ -6,9 +6,9 @@ import "./index.css";
 import Layout from "./components/Layout";
 
 import { Toaster } from "sonner";
-import Homepage from './pages/Homepage';
+import Homepage from "./pages/Homepage";
 import AllHabitsPage from "./pages/AllHabitspage";
-
+import Plannerai from "./pages/Ai_planner";
 
 const router = createBrowserRouter([
   {
@@ -17,13 +17,16 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/home",
-        element: <Homepage/>,
+        element: <Homepage />,
       },
       {
         path: "/habits",
-        element: <AllHabitsPage/>,
+        element: <AllHabitsPage />,
       },
-  
+      {
+        path: "/planner",
+        element: <Plannerai />,
+      },
     ],
   },
 ]);

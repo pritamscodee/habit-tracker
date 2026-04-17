@@ -1,15 +1,12 @@
-import React from 'react'
-import Habits from '../components/Habits'
+import React from "react";
+import Habits from "../components/Habits";
 
 function AllHabitsPage() {
   return (
     <>
-    
-    <Habits/>
-    
-    
+      <Habits />
     </>
-  )
+  );
 }
 
-export default AllHabitsPage
+export default AllHabitsPage;

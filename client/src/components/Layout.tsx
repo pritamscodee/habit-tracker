@@ -1,52 +1,74 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet, Link, useLocation } from "react-router-dom";
 import Hero from "./Hero";
+import Footer from "./Footer";
 
 function Layout() {
-
-
   const location = useLocation();
+  const showHero = location.pathname === "/";
 
-  const showHero = location.pathname === "/"
+  const emojis = ["😎", "🤪", "👾", "🚀", "💥", "😈", "🌀", "🎯", "🔥", "🐸", "🍕", "⚡"];
+
+  const [emoji, setEmoji] = useState("😎");
+  const [showFooter, setShowFooter] = useState(false);
+
+  const changeEmoji = () => {
+    const random = emojis[Math.floor(Math.random() * emojis.length)];
+    setEmoji(random);
+  };
+
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const fullHeight = document.documentElement.scrollHeight;
+
+      if (scrollY + windowHeight >= fullHeight - 80) {
+        setShowFooter(true);
+      } else {
+        setShowFooter(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <>
-      <nav className="min-h-80px w-full border-b-2 border-black p-6 bg-gray-100 shadow-[0px_6px_0px_rgba(0,0,255,0.4)] flex items-center justify-between">
+      <nav className="w-full bg-cyan-400 border-b-4 border-black shadow-[0px_8px_0px_0px_rgba(0,0,0,1)]">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-5 max-w-7xl mx-auto">
+          <h1 className="text-3xl font-black uppercase tracking-tighter rotate-[-2deg] hover:rotate-0 transition-transform duration-200">
+            ✏️ HabitTracker
+          </h1>
 
-        <h1 className="text-2xl font-bold font-[cursive] rotate-2">
-          HabitTracker ✏️
-        </h1>
+          <div className="flex flex-wrap justify-center gap-6 text-lg font-bold uppercase">
+            <Link to="/home">Home</Link>
+            <Link to="/habits">Habits</Link>
+            <Link to="/planner">Ai+Planner</Link>
 
-
-        <div className="flex gap-10 text-lg font-semibold font-[cursive]">
-
-
-
-
-          <Link to="/home" className="relative pb-1 border-b-2 border-dotted border-black transition-all duration-200 hover:rotate-[-3deg] hover:text-blue-600 hover:border-blue-600">   Home</Link>
-
-
-
-
-          <Link
-            to="/habits"
-            className="relative pb-1 border-b-2 border-dotted border-black transition-all duration-200 hover:rotate-3 hover:text-blue-600 hover:border-blue-600"
-          >
-            Habits
-          </Link>
-
-
-          <Link
-            to="/stats"
-            className="relative pb-1 border-b-2 border-dotted border-black transition-all duration-200 hover:rotate-2 hover:text-blue-600 hover:border-blue-600"
-          >
-            Stats
-          </Link>
+            <button
+              onClick={changeEmoji}
+              className="w-10 h-10 flex items-center justify-center border-2 border-black rounded-full
+              hover:scale-125 active:scale-90"
+            >
+              {emoji}
+            </button>
+          </div>
         </div>
       </nav>
 
       <Outlet />
+      {showHero && <Hero />}
 
-   {showHero &&   <Hero/>}
+
+      <div
+        className={`transition-all duration-500 ease-in-out transform
+        ${showFooter ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0 pointer-events-none"}`}
+      >
+        <Footer />
+      </div>
     </>
   );
 }

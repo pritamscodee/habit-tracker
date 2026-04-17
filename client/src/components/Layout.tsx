@@ -57,7 +57,7 @@ function Layout() {
           <div className="flex flex-wrap justify-center gap-6 text-lg font-bold uppercase">
             <Link to="/home">Home</Link>
             <Link to="/habits">Habits</Link>
-            <Link to="/planner">Ai+Planner</Link>
+       
 
             <button
               onClick={changeEmoji}

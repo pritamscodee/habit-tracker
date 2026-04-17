@@ -8,7 +8,7 @@ import Layout from "./components/Layout";
 import { Toaster } from "sonner";
 import Homepage from "./pages/Homepage";
 import AllHabitsPage from "./pages/AllHabitspage";
-import Plannerai from "./pages/Ai_planner";
+
 import PrivacyASCII from "./components/Privacy";
 
 const router = createBrowserRouter([
@@ -24,10 +24,7 @@ const router = createBrowserRouter([
         path: "/habits",
         element: <AllHabitsPage />,
       },
-      {
-        path: "/planner",
-        element: <Plannerai />,
-      },
+    
       {
         path:'/privacy',
         element:<PrivacyASCII/>

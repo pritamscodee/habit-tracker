@@ -26,3 +26,4 @@ fronted input -- > server logic +prompt --> model --> response --> frontend outp
 
 
 
+read here for clear understanding :https://docs.ollama.com/

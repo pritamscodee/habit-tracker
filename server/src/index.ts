@@ -9,8 +9,11 @@ export const app = express();
 
 app.use(
   cors({
-    origin:  "https://habit-tracker-6r0w1kq3t-pritamscodees-projects.vercel.app"
-  }),
+    origin: [
+      "https://habit-tracker-6r0w1kq3t-pritamscodees-projects.vercel.app",
+      "https://habit-tracker-git-main-pritamscodees-projects.vercel.app"
+    ]
+  })
 );
 
 app.use(express.json());

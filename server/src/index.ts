@@ -10,9 +10,7 @@ export const app = express();
 app.use(
   cors({
     origin: [
-      "https://habit-tracker-6r0w1kq3t-pritamscodees-projects.vercel.app",
-      "https://habit-tracker-git-main-pritamscodees-projects.vercel.app",
-      "https://habit-tracker-39w5su35b-pritamscodees-projects.vercel.app/"
+    "https://habiatio.netlify.app"
     ]
   })
 );

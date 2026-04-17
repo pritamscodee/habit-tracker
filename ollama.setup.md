@@ -2,10 +2,18 @@ im using ollama here
 
 so you need to install ollama first
 
-Name,Model ID,Size,Last Modified
-gemma3:4b,a2af6cc3eb7f,3.3 GB,3 days ago
+Name : gemma3:4b
 
-it is almost  3 gb 
+Model ID: a2af6cc3eb7f
+
+Size:3.3 GB
+
+Last Modified:3 days ago
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------
 
  used commands :: -- >
 
@@ -21,7 +29,7 @@ data flow :-->
 fronted input -- > server logic +prompt --> model --> response --> frontend output ( used react flow here for graph type look)
 
 
-
+-------------------------------------------------------------------------------------------------------------------------------
 
 
 read here for clear understanding :https://docs.ollama.com/

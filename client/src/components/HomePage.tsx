@@ -1,27 +1,22 @@
-import React, { useState } from "react";
-import { Button } from "./ui/button";
-import { Popover } from "@base-ui/react/popover";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
-import { Textarea } from "./ui/textarea";
-import { api } from "../api/axios-config";
-import { toast } from "sonner";
+import React, { useState } from 'react';
+import { Button } from './ui/button';
+import { Popover } from '@base-ui/react/popover';
+import { Input } from './ui/input';
+import { Label } from './ui/label';
+import { Textarea } from './ui/textarea';
+import { api } from '../api/axios-config';
+import { toast } from 'sonner';
 
 function Home() {
-  const habitTypes = [
-    { label: "Fitness", emoji: "💪" },
-    { label: "Study", emoji: "📚" },
-    { label: "Coding", emoji: "💻" },
-    { label: "Health", emoji: "🥗" },
-    { label: "Sleep", emoji: "😴" },
-    { label: "Fun", emoji: "🎮" },
-  ];
 
-  const [selectedType, setSelectedType] = useState(habitTypes[0]);
+
+
+
 
   return (
     <div className="min-h-screen bg-[#f7f7f7] p-6 flex items-center justify-center">
       <div className="w-full max-w-2xl">
+     
         <div className="bg-yellow-300 border-4 border-black p-6 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-shadow duration-150">
           <div className="flex items-center gap-2 text-4xl font-black uppercase tracking-tighter text-black mb-2">
             ✏️ Habit Tracker
@@ -58,28 +53,28 @@ function Home() {
 }
 
 function Form() {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim()) {
-      toast.error("Please enter a habit name");
+      toast.error('Please enter a habit name');
       return;
     }
 
     setIsSubmitting(true);
     try {
-      const response = await api.post("/post", { name, description });
+      const response = await api.post('/post', { name, description });
       if (response.status === 201) {
-        toast.success("Habit added! 💥");
-        setName("");
-        setDescription("");
+        toast.success('Habit added! 💥');
+        setName('');
+        setDescription('');
       }
     } catch (err) {
       console.error(err);
-      toast.error("Failed to add habit. Try again.");
+      toast.error('Failed to add habit. Try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -115,13 +110,14 @@ function Form() {
         disabled={isSubmitting}
         className="w-full bg-cyan-400 border-4 border-black py-3 font-bold uppercase shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all duration-100 disabled:opacity-50 disabled:translate-x-0 disabled:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
       >
-        {isSubmitting ? "Saving..." : "Save Habit"}
+        {isSubmitting ? 'Saving...' : 'Save Habit'}
       </Button>
     </form>
   );
 }
 
-function ArrowSvg(props: React.ComponentProps<"svg">) {
+
+function ArrowSvg(props: React.ComponentProps<'svg'>) {
   return (
     <svg width="24" height="12" viewBox="0 0 24 12" fill="none" {...props}>
       <path

@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet, Link, useLocation } from "react-router-dom";
 import Hero from "./Hero";
 import Footer from "./Footer";
@@ -51,7 +51,7 @@ function Layout() {
       >
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-5 max-w-7xl mx-auto">
           <h1 className="text-3xl font-black uppercase tracking-tighter rotate-2 hover:rotate-0 transition-transform duration-200">
-            ✏️ HabitTracker
+            <Link to="/"> ✏️ HabitTracker </Link>
           </h1>
 
           <div className="flex flex-wrap justify-center gap-6 text-lg font-bold uppercase">

@@ -3,7 +3,7 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "http://localhost:3005/api/habits",
+  baseURL: "https://habit-tracker-i0eb.onrender.com/api/habits",
   headers: {
     "Content-Type": "application/json",
   },

@@ -9,7 +9,7 @@ export const app = express();
 
 app.use(
   cors({
-    origin: "https://habit-tracker-1ymkq5zxl-pritamscodees-projects.vercel.app/",
+    origin: "https://habit-tracker-1ymkq5zxl-pritamscodees-projects.vercel.app",
   }),
 );
 

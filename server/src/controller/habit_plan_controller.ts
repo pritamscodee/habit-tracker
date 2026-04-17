@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { generateHabitPlan } from "../services/habit_genPlan";
 
-
 export const createHabitPlan = async (req: Request, res: Response) => {
   try {
     const { habit } = req.body;

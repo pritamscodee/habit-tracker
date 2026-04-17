@@ -15,7 +15,7 @@ app.use(
 
 app.use(express.json());
 
-app.use(express.urlencoded({ extended: true })); //true --> aloow nested objects in urlencoded data, false --> only flat key-value pairs.//
+app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/habits", router);
 

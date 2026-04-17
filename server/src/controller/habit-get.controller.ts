@@ -5,7 +5,6 @@ export async function Get_Req(req: Request, res: Response): Promise<void> {
   try {
     const habits = await get_data();
 
-
     if (!habits || habits.length === 0) {
       res.status(404).json({
         success: false,
@@ -19,12 +18,9 @@ export async function Get_Req(req: Request, res: Response): Promise<void> {
       count: habits.length,
       data: habits,
     });
-
   } catch (error) {
-  
     console.error("Error fetching habits:", error);
 
-   
     res.status(500).json({
       success: false,
       message: "Internal server error",

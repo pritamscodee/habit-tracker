@@ -35,9 +35,7 @@ function Home() {
             <Popover.Portal>
               <Popover.Positioner sideOffset={16}>
                 <Popover.Popup className="bg-white border-4 border-black p-6 w-[90vw] max-w-md shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] -rotate-1">
-                  <Popover.Arrow className="fill-black stroke-black stroke-2">
-                    <ArrowSvg />
-                  </Popover.Arrow>
+                 
                   <Popover.Title className="text-3xl font-black mb-4 flex items-center gap-2 uppercase">
                     <span>➕</span> Create Habit
                   </Popover.Title>
@@ -117,17 +115,5 @@ function Form() {
 }
 
 
-function ArrowSvg(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg width="24" height="12" viewBox="0 0 24 12" fill="none" {...props}>
-      <path
-        d="M12 0L24 12H0L12 0Z"
-        fill="white"
-        stroke="black"
-        strokeWidth="2"
-      />
-    </svg>
-  );
-}
 
 export default Home;

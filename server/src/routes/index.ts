@@ -12,7 +12,6 @@ router.get("/get", Get_Req);
 
 router.post("/plan", createHabitPlan);
 
-
-router.delete('/del/:id',delete_habits)
+router.delete("/del/:id", delete_habits);
 
 export { router };

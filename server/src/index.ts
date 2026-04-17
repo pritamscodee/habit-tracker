@@ -9,7 +9,7 @@ export const app = express();
 
 app.use(
   cors({
-    origin: "https://habit-tracker-navy-chi.vercel.app",
+    origin:  "https://habit-tracker-6r0w1kq3t-pritamscodees-projects.vercel.app"
   }),
 );
 

@@ -16,7 +16,7 @@ function Home() {
   return (
     <div className="min-h-screen bg-[#f7f7f7] p-6 flex items-center justify-center">
       <div className="w-full max-w-2xl">
-     
+
         <div className="bg-yellow-300 border-4 border-black p-6 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-shadow duration-150">
           <div className="flex items-center gap-2 text-4xl font-black uppercase tracking-tighter text-black mb-2">
             ✏️ Habit Tracker
@@ -35,8 +35,8 @@ function Home() {
             <Popover.Portal>
               <Popover.Positioner sideOffset={16}>
                 <Popover.Popup className="bg-white border-4 border-black p-6 w-[90vw] max-w-md shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] -rotate-1">
-                 
-                  <Popover.Title className="text-3xl font-black mb-4 flex items-center gap-2 uppercase">
+
+                  <Popover.Title className="text-3xl  font-sans mb-4 flex items-center gap-2 uppercase ">
                     <span>➕</span> Create Habit
                   </Popover.Title>
                   <Form />

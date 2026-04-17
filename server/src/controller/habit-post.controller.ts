@@ -4,7 +4,7 @@ import { habits_insert_db } from "../services/habit.post.services";
 import { habitSchema } from "../validation/zod_validation";
 import z from "zod";
 
-type HabitInput = z.infer<typeof habitSchema>;
+
 
 export default async function createHabits(
   req: Request,

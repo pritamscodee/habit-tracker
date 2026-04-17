@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import  { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
 function Footer() {
@@ -56,9 +56,9 @@ function Footer() {
               <Link to="/habits" className="hover:underline underline-offset-4">
                 Habits
               </Link>
-              <a href="#" className="hover:underline underline-offset-4">
+              <Link to="/privacy" className="hover:underline underline-offset-4">
                 Privacy
-              </a>
+              </Link>
               <a href="#" className="hover:underline underline-offset-4">
                 Terms
               </a>

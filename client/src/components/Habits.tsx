@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { api } from '../api/axios-config';
 import { toast } from 'sonner';
 import { Spinner } from "@/components/ui/spinner";

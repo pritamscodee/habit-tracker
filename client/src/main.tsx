@@ -32,12 +32,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/habits",
-        element: <AllHabitsPage />,
+        element:    <Protected> <AllHabitsPage />  </Protected>,
       },
     
       {
         path:'/privacy',
-        element:<PrivacyASCII/>
+        element:   <Protected> <PrivacyASCII/>  </Protected>
       }
     ],
   },

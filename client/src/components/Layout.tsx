@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 import { Outlet, Link, useLocation } from "react-router-dom";
 import Hero from "./Hero";
 import Footer from "./Footer";
+import { useUser, UserButton, SignInButton } from "@clerk/react";
 
 function Layout() {
   const location = useLocation();
   const showHero = location.pathname === "/";
+
+  const { isSignedIn, isLoaded } = useUser();
 
   const emojis = ["😎", "🤪", "👾", "🚀", "💥", "😈", "🌀", "🎯", "🔥", "🐸", "🍕", "⚡"];
   const [darkMode, setDarkMode] = useState(false);
@@ -24,19 +27,13 @@ function Layout() {
   }, [darkMode]);
 
 
-
-
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
       const fullHeight = document.documentElement.scrollHeight;
 
-      if (scrollY + windowHeight >= fullHeight - 80) {
-        setShowFooter(true);
-      } else {
-        setShowFooter(false);
-      }
+      setShowFooter(scrollY + windowHeight >= fullHeight - 80);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -45,20 +42,24 @@ function Layout() {
 
   return (
     <>
+   
       <nav
-        className={`w-full border-b-4 border-black shadow-[0px_8px_0px_0px_rgba(0,0,0,1)]
-  ${darkMode ? "bg-black text-white" : "bg-cyan-400 text-black"}`}
+        className={`w-full border-b-4 border-black shadow-[0px_8px_0px_rgba(0,0,0,1)]
+        ${darkMode ? "bg-black text-white" : "bg-cyan-400 text-black"}`}
       >
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-5 max-w-7xl mx-auto">
+          
+   
           <h1 className="text-3xl font-black uppercase tracking-tighter rotate-2 hover:rotate-0 transition-transform duration-200">
-            <Link to="/"> ✏️ HabitTracker </Link>
+            <Link to="/">✏️ HabitTracker</Link>
           </h1>
 
-          <div className="flex flex-wrap justify-center gap-6 text-lg font-bold uppercase">
+     
+          <div className="flex flex-wrap items-center justify-center gap-6 text-lg font-bold uppercase">
             <Link to="/home">Home</Link>
             <Link to="/habits">Habits</Link>
-       
 
+         
             <button
               onClick={changeEmoji}
               className="w-10 h-10 flex items-center justify-center border-2 border-black rounded-full
@@ -67,7 +68,22 @@ function Layout() {
               {emoji}
             </button>
 
+          
+            <div className="flex gap-4 items-center">
+              {!isLoaded ? (
+                <span className="text-sm">...</span>
+              ) : !isSignedIn ? (
+                <SignInButton mode="modal">
+                  <button className="px-4 py-2 bg-blue-500 text-white rounded">
+                    Login
+                  </button>
+                </SignInButton>
+              ) : (
+                <UserButton />
+              )}
+            </div>
 
+    
             <div
               onClick={() => setDarkMode(!darkMode)}
               className="flex items-center cursor-pointer select-none"
@@ -77,24 +93,26 @@ function Layout() {
               </span>
 
               <div
-                className={`w-60px h-28px border-2 border-black shadow-[3px_3px_0px_black] relative
-    ${darkMode ? "bg-green-400" : "bg-red-400"}`}
+                className={`w-[60px] h-[28px] border-2 border-black shadow-[3px_3px_0px_black] relative
+                ${darkMode ? "bg-green-400" : "bg-red-400"}`}
               >
                 <div
-                  className={`w-24px h-24px bg-white border-2 border-black absolute top-0 transition-all duration-150
-      ${darkMode ? "left-32px" : "left-0"}`}
+                  className={`w-[24px] h-[24px] bg-white border-2 border-black absolute top-0 transition-all duration-150
+                  ${darkMode ? "left-[32px]" : "left-0"}`}
                 />
               </div>
             </div>
-
           </div>
         </div>
       </nav>
 
+     
       <div className={darkMode ? "bg-[#111] text-white min-h-screen" : "bg-white text-black min-h-screen"}>
         <Outlet />
         {showHero && <Hero />}
       </div>
+
+    
       <div
         className={`transition-all duration-500 ease-in-out transform
         ${showFooter ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0 pointer-events-none"}`}

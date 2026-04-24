@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 
-app.post("/auth/register", async (req, res) => {
+app.post("/api/habits/auth/register", async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -40,7 +40,7 @@ app.post("/auth/register", async (req, res) => {
 
 
 
-app.post("/auth/login", async (req, res) => {
+app.post("/api/habits/auth/login", async (req, res) => {
   try {
     const { email, password } = req.body;
 

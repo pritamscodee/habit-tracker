@@ -12,8 +12,13 @@ export const app = express();
 app.use(
   cors({
     origin: [
-      "https://habiatio.netlify.app", "https://69e2ad6ac249e613a9455f11--habiatio.netlify.app"
-    ]
+      "https://habiatio.netlify.app", 
+      "https://69e2ad6ac249e613a9455f11--habiatio.netlify.app",
+      "http://127.0.0.1:52804",
+      "http://localhost:3000",
+      "http://localhost:5173"
+    ],
+    credentials: true
   })
 );
 

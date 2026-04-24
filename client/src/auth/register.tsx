@@ -1,8 +1,12 @@
 // src/components/Register.jsx
 
-import { registerAPI } from "@/api/auth";
+import { registerAPI } from "@/api/auth"; // keep as you wrote (but fix typo later)
 import { useState, ChangeEvent } from "react";
 
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 
 export default function Register() {
     const [form, setForm] = useState({
@@ -27,25 +31,48 @@ export default function Register() {
             console.log(err);
         }
     };
+
     return (
-        <form onSubmit={handleSubmit}>
-            <h2>Register</h2>
+        <div className="flex items-center justify-center min-h-screen bg-muted">
+            <form onSubmit={handleSubmit}>
+                <Card className="w-[400px] shadow-xl">
+                    <CardHeader>
+                        <CardTitle className="text-center text-2xl">
+                            Register
+                        </CardTitle>
+                    </CardHeader>
 
-            <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                onChange={handleChange}
-            />
+                    <CardContent className="space-y-4">
 
-            <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                onChange={handleChange}
-            />
+                        <div className="space-y-2">
+                            <Label htmlFor="email">Email</Label>
+                            <Input
+                                id="email"
+                                type="email"
+                                name="email"
+                                placeholder="Email"
+                                onChange={handleChange}
+                            />
+                        </div>
 
-            <button type="submit">Register</button>
-        </form>
+                        <div className="space-y-2">
+                            <Label htmlFor="password">Password</Label>
+                            <Input
+                                id="password"
+                                type="password"
+                                name="password"
+                                placeholder="Password"
+                                onChange={handleChange}
+                            />
+                        </div>
+
+                        <Button type="submit" className="w-full">
+                            Register
+                        </Button>
+
+                    </CardContent>
+                </Card>
+            </form>
+        </div>
     );
 }

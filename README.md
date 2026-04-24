@@ -32,7 +32,8 @@
 
 ---------------------------------------------
 #wakaTime Dashboard -->
-![Uploading image.png…]()
+<img width="1906" height="865" alt="image" src="https://github.com/user-attachments/assets/b3f0b3e3-25b9-4b51-9328-62add24bf1d4" />
+
 
 -----------------------------------------------
 

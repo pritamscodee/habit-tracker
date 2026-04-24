@@ -31,7 +31,7 @@ app.post("/api/habits/auth/register", async (req, res) => {
 
     res.json(user);
   } catch (err) {
-  console.error(err); // 👈 ADD THIS
+  console.error(err); 
   res.status(500).json({ error: err || "error" });
 }
 });

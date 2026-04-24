@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 
 import jwt from "jsonwebtoken";
 
-const SECRET = "your_secret_key"; // move to .env later
+const SECRET = "KmbJiMav4aZtxwXP1tzUwt4oaH8Bj6r1bnwWrvTY4oKs"
 
 export const generateToken = (id: string) => {
     return jwt.sign({ id }, SECRET, { expiresIn: "1d" });

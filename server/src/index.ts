@@ -32,13 +32,19 @@ app.post("/api/habits/auth/register", async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const user = await registerUser(email, password);
+    if (!email || !password) {
+      return res.status(400).json({ error: "Email and password are required" });
+    }
 
-    res.json(user);
-  } catch (err) {
-  console.error(err); 
-  res.status(500).json({ error: err || "error" });
-}
+    console.log("Registration attempt for:", email);
+    const user = await registerUser(email, password);
+    console.log("Registration successful for:", email);
+
+    res.json({ message: "User registered successfully", user: { id: user.id, email: user.email } });
+  } catch (err: any) {
+    console.error("Registration error:", err);
+    res.status(500).json({ error: err.message || "Registration failed" });
+  }
 });
 
 

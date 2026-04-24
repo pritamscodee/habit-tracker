@@ -4,13 +4,15 @@ import { createBrowserRouter } from "react-router-dom";
 import { RouterProvider } from "react-router-dom";
 import "./index.css";
 import Layout from "./components/Layout";
-import { ClerkProvider } from '@clerk/react'
+
 import { Toaster } from "sonner";
 import Homepage from "./pages/Homepage";
 import AllHabitsPage from "./pages/AllHabitspage";
 
 import PrivacyASCII from "./components/Privacy";
-import { Protected } from "./components/Protected";
+import Login from "./auth/login";
+import Register from "./auth/register";
+
 
 
 
@@ -22,22 +24,36 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/home",
-        element:   
-        <Protected>
+        element:
+
 
           <Homepage />
-        </Protected>
-        
+
+
         ,
       },
       {
         path: "/habits",
-        element:    <Protected> <AllHabitsPage />  </Protected>,
+        element: <AllHabitsPage />
       },
-    
+
       {
-        path:'/privacy',
-        element:   <Protected> <PrivacyASCII/>  </Protected>
+        path: '/privacy',
+        element: <PrivacyASCII />
+      }
+
+
+      , {
+
+
+        path: '/login',
+        element: <Login />
+      },
+      {
+        path: '/register',
+        element: <Register />
+
+
       }
     ],
   },
@@ -45,10 +61,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-     <ClerkProvider publishableKey={import.meta.env.VITE_CLERK_PUBLISHABLE_KEY}>
+
     <RouterProvider router={router} />
     <Toaster position="top-center" />
-     </ClerkProvider>
+
   </StrictMode>
- 
+
 );

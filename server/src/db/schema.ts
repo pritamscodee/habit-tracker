@@ -1,4 +1,4 @@
-import { pgTable, text, integer, timestamp, serial, jsonb } from "drizzle-orm/pg-core";
+import { pgTable, text, integer,uuid, timestamp, serial, jsonb } from "drizzle-orm/pg-core";
 
 export const Habits = pgTable("habits", {
   id: serial("id").primaryKey(),
@@ -7,3 +7,10 @@ export const Habits = pgTable("habits", {
   created_at: timestamp("created_at").notNull().defaultNow(),
 });
 
+
+
+export const users = pgTable("users", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  email: text("email").notNull().unique(),
+  password: text("password").notNull(),
+});

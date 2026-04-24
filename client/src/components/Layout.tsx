@@ -2,30 +2,49 @@ import { useEffect, useState } from "react";
 import { Outlet, Link, useLocation } from "react-router-dom";
 import Hero from "./Hero";
 import Footer from "./Footer";
-import { useUser, UserButton, SignInButton } from "@clerk/react";
 
 function Layout() {
   const location = useLocation();
+
   const showHero = location.pathname === "/";
 
-  const { isSignedIn, isLoaded } = useUser();
+  // 🔐 Auth state
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    window.location.href = "/login";
+  };
+
+  // 🎭 Emoji
   const emojis = ["😎", "🤪", "👾", "🚀", "💥", "😈", "🌀", "🎯", "🔥", "🐸", "🍕", "⚡"];
-  const [darkMode, setDarkMode] = useState(false);
   const [emoji, setEmoji] = useState("😎");
-  const [showFooter, setShowFooter] = useState(false);
 
   const changeEmoji = () => {
     const random = emojis[Math.floor(Math.random() * emojis.length)];
     setEmoji(random);
   };
 
+  // 🌙 Dark mode
+  const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
     document.body.style.background = darkMode ? "#111" : "#fff";
     document.body.style.color = darkMode ? "#fff" : "#000";
   }, [darkMode]);
 
+  // 📍 Active link
+  const isActive = (path: string) =>
+    location.pathname === path ? "underline" : "";
+
+  // 📉 Footer show on scroll
+  const [showFooter, setShowFooter] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,24 +61,30 @@ function Layout() {
 
   return (
     <>
-   
+      {/* 🔝 NAVBAR */}
       <nav
         className={`w-full border-b-4 border-black shadow-[0px_8px_0px_rgba(0,0,0,1)]
         ${darkMode ? "bg-black text-white" : "bg-cyan-400 text-black"}`}
       >
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-5 max-w-7xl mx-auto">
-          
-   
-          <h1 className="text-3xl font-black uppercase tracking-tighter rotate-2 hover:rotate-0 transition-transform duration-200">
+
+          {/* Logo */}
+          <h1 className="text-3xl font-black uppercase tracking-tighter rotate-2 hover:rotate-0 transition">
             <Link to="/">✏️ HabitTracker</Link>
           </h1>
 
-     
+          {/* Nav Links */}
           <div className="flex flex-wrap items-center justify-center gap-6 text-lg font-bold uppercase">
-            <Link to="/home">Home</Link>
-            <Link to="/habits">Habits</Link>
 
-         
+            <Link to="/home" className={isActive("/home")}>
+              Home
+            </Link>
+
+            <Link to="/habits" className={isActive("/habits")}>
+              Habits
+            </Link>
+
+            {/* Emoji Button */}
             <button
               onClick={changeEmoji}
               className="w-10 h-10 flex items-center justify-center border-2 border-black rounded-full
@@ -68,22 +93,33 @@ function Layout() {
               {emoji}
             </button>
 
-          
-            <div className="flex gap-4 items-center">
-              {!isLoaded ? (
-                <span className="text-sm">...</span>
-              ) : !isSignedIn ? (
-                <SignInButton mode="modal">
-                  <button className="px-4 py-2 bg-blue-500 text-white rounded">
-                    Login
-                  </button>
-                </SignInButton>
+            {/* 🔐 Auth Buttons */}
+            <div className="flex gap-3 items-center">
+              {!isLoggedIn ? (
+                <>
+                  <Link to="/login">
+                    <button className="px-4 py-2 bg-black text-white rounded hover:opacity-80">
+                      Login
+                    </button>
+                  </Link>
+
+                  <Link to="/register">
+                    <button className="px-4 py-2 border-2 border-black rounded hover:bg-black hover:text-white">
+                      Register
+                    </button>
+                  </Link>
+                </>
               ) : (
-                <UserButton />
+                <button
+                  onClick={handleLogout}
+                  className="px-4 py-2 bg-red-500 text-white rounded hover:opacity-80"
+                >
+                  Logout
+                </button>
               )}
             </div>
 
-    
+            {/* 🌙 Dark Mode Toggle */}
             <div
               onClick={() => setDarkMode(!darkMode)}
               className="flex items-center cursor-pointer select-none"
@@ -106,15 +142,18 @@ function Layout() {
         </div>
       </nav>
 
-     
-      <div className={darkMode ? "bg-[#111] text-white min-h-screen" : "bg-white text-black min-h-screen"}>
+      {/* 📄 PAGE CONTENT */}
+      <div
+        className={`min-h-screen ${darkMode ? "bg-[#111] text-white" : "bg-white text-black"
+          }`}
+      >
         <Outlet />
         {showHero && <Hero />}
       </div>
 
-    
+      {/* 📉 FOOTER */}
       <div
-        className={`transition-all duration-500 ease-in-out transform
+        className={`transition-all duration-500 transform
         ${showFooter ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0 pointer-events-none"}`}
       >
         <Footer />

@@ -14,11 +14,11 @@ function Home() {
 
 
   return (
-    <div className="min-h-screen bg-[#f7f7f7] p-6 flex items-center justify-center">
+    <div className="min-h-screen bg-background text-foreground p-6 flex items-center justify-center">
       <div className="w-full max-w-2xl">
 
-        <div className="bg-yellow-300 border-4 border-black p-6 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-shadow duration-150">
-          <div className="flex items-center gap-2 text-4xl font-black uppercase tracking-tighter text-black mb-2">
+        <div className="bg-yellow-300 dark:bg-yellow-600 border-4 border-black dark:border-white p-6 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] dark:shadow-[12px_12px_0px_0pxrgba(255,255,0.2) hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transistion-shadow duration-150]">
+          <div className="flex items-center gap-2 text-4xl font-black uppercase tracking-tighter text-black dark:text-white mb-2">
             ✏️ Habit Tracker
           </div>
           <p className="text-xl font-bold text-black/80 mb-8 font-mono">
@@ -26,17 +26,15 @@ function Home() {
           </p>
 
           <Popover.Root>
-            <Popover.Trigger>
-              <button className="bg-lime-400 border-4 border-black px-6 py-3 font-bold text-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all duration-100 uppercase tracking-wide">
-                + Add New Habit
-              </button>
+            <Popover.Trigger className="bg-lime-400 dark:bg-lime-600 border-4 border-black dark:boder-white px-6 py-3 font-bold text-black dark-text-black dark:text-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)]">
+             CreAte haBBit +
             </Popover.Trigger>
 
             <Popover.Portal>
               <Popover.Positioner sideOffset={16}>
                 <Popover.Popup className="bg-white border-4 border-black p-6 w-[90vw] max-w-md shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] -rotate-1">
 
-                  <Popover.Title className="text-3xl  font-sans mb-4 flex items-center gap-2 uppercase ">
+                  <Popover.Title className="text-3xl  font-sans mb-4 flex items-center gap-2 uppercase text-black dark:text-white ">
                     <span>➕</span> Create Habit
                   </Popover.Title>
                   <Form />
@@ -55,7 +53,7 @@ function Form() {
   const [description, setDescription] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async (e: React.SubmitEvent) => {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!name.trim()) {
       toast.error('Please enter a habit name');

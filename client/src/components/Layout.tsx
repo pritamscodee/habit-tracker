@@ -35,9 +35,13 @@ function Layout() {
   const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
-    document.body.style.background = darkMode ? "#111" : "#fff";
-    document.body.style.color = darkMode ? "#fff" : "#000";
-  }, [darkMode]);
+   if(darkMode){
+    document.documentElement.classList.add("dark");
+   }else
+   {
+    document.documentElement.classList.remove("dark");
+   }
+  },[darkMode]);
 
   // 📍 Active link
   const isActive = (path: string) =>
@@ -144,8 +148,7 @@ function Layout() {
 
       {/* 📄 PAGE CONTENT */}
       <div
-        className={`min-h-screen ${darkMode ? "bg-[#111] text-white" : "bg-white text-black"
-          }`}
+        className="min-h-screen bg-background text-foreground"
       >
         <Outlet />
         {showHero && <Hero />}

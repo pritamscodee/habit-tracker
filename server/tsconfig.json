@@ -1,8 +1,11 @@
 {
   "compilerOptions": {
-    "types": ["node"],
-    "typeRoots": ["./node_modules/@types"],
-    "ignoreDeprecations": "6.0",
+    "types": [
+      "node"
+    ],
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
     "target": "ES2022",
     "module": "ES2022",
     "moduleResolution": "node",
@@ -15,5 +18,7 @@
     "src/**/*",
     "drizzle.config.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }
